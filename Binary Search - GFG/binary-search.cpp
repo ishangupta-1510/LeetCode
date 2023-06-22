@@ -13,7 +13,7 @@ class Solution {
     public:
         int binarysearch(int arr[], int n, int k) {
             // code here
-            int start = 0, end=n, mid=-1;
+            int start = 0, end=n-1, mid=-1;
             while(start<=end){
                 mid = (start+end)/2;
                 if(arr[mid] == k){
