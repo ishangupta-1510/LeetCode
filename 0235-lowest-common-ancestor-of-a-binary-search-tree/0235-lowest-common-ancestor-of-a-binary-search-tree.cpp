@@ -24,17 +24,15 @@ public:
         return;
     }
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> v1, v2;
-        find(root, p, v1);
-        find(root, q, v2);
-        
+        vector<TreeNode*> v1,v2;
+        find(root,p,v1);
+        find(root,q,v2);
         TreeNode* ans = root;
-        int i = 0;
-        while (i < min(v1.size(), v2.size()) && v1[i] == v2[i]) {
+        int i=0;
+        while(i<min(v1.size(),v2.size()) and v1[i] == v2[i]){
             ans = v1[i];
             i++;
         }
-        
         return ans;
     }
 };
