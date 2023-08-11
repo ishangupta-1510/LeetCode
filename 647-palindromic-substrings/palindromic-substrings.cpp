@@ -3,14 +3,31 @@ public:
     int countSubstrings(string s) {
         int n = s.length();
         int ans = 0;
+
+        // Odd length palindromes
         for (int i = 0; i < n; i++) {
-            for (int j = 0; i - j >= 0 && i + j < n && s[i - j] == s[i + j]; j++) {
-                ans++;
+            int right = i, left = i;
+            int count = 0;
+            while (left >= 0 && right < n && s[left] == s[right]) {
+                count++;
+                left--;
+                right++;
             }
-            for (int j = 0; i - j >= 0 && i + j + 1 < n && s[i - j] == s[i + j + 1]; j++) {
-                ans++;
-            }
+            ans += count;
         }
+
+        // Even length palindromes
+        for (int i = 0; i < n - 1; i++) {
+            int right = i + 1, left = i;
+            int count = 0;
+            while (left >= 0 && right < n && s[left] == s[right]) {
+                count++;
+                left--;
+                right++;
+            }
+            ans += count;
+        }
+
         return ans;
     }
 };
