@@ -1,7 +1,6 @@
 class Solution {
 public:
     bool partition(vector<int>& nums,int n,int sum,vector<vector<int>>& dp){
-        // cout<<n<<" "<<sum<<endl;
         if(n <= 0){
             if(sum == 0){
                 return true;
