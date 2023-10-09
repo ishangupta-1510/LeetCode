@@ -1,39 +1,33 @@
 class Solution {
 public:
-    pair<int,int> helper(string &s, int p, int q)
-    {
-        while(p>=0 && q<s.length() && s[p] == s[q])
-        {
-            p--;
-            q++;
-        }
-        return {p+1,q-1};
-    }
-    
     string longestPalindrome(string s) {
         int n = s.length();
-        int ans = 1,l=0,r=0;
-        
-        for(int i=1;i<n;i++)
-        {
-            pair<int,int> p1 = helper(s,i,i);
-            pair<int,int> p2 = helper(s,i,i-1);
-            if(p1.second-p1.first+1 > ans)
-            {
-                ans = p1.second-p1.first+1;
-                l = p1.first;
-                r = p1.second;
-            }
-            if(p2.second-p2.first+1 > ans)
-            {
-                ans = p2.second-p2.first+1;
-                l = p2.first;
-                r = p2.second;
+        if (n <= 1) {
+            return s; // Return the input string if it's empty or has only one character
+        }
+
+        int start = 0, maxLen = 0;
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+            maxLen = 1; // Initialize maxLen to 1 for single-character palindromes
+        }
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                if (s[i] == s[j]) {
+                    if (j - i == 1 || dp[i + 1][j - 1]) {
+                        dp[i][j] = true;
+                        if (j - i + 1 > maxLen) {
+                            maxLen = j - i + 1;
+                            start = i;
+                        }
+                    }
+                }
             }
         }
-        string str = "";
-        for(int i=l;i<=r;i++)
-            str += s[i];
-        return str;
+
+        return s.substr(start, maxLen);
     }
 };
