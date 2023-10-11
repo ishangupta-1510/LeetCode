@@ -1,25 +1,27 @@
 class Solution {
 public:
-    int Choices(string s, int index, vector<int> &dp){
-        if(index == s.size()){
-            return 1;
-        }
-        if(dp[index] != -1){
-            return dp[index];
-        }
-        int res = 0;
-        if(s[index] != '0'){
-            res += Choices(s,index+1,dp);
-        }
-        if(index + 1 <s.size() and (s[index] == '1' or (s[index] == '2' and s[index+1] <= '6'))){
-            res += Choices(s, index+2,dp);
-
-        }
-        return dp[index] = res;
-    }
     int numDecodings(string s) {
         int n = s.length();
-        vector<int> dp(n+1,-1);
-        return Choices(s,0,dp);
+        if (n == 0) {
+            return 0;
+        }
+
+        vector<int> dp(n + 1, 0);
+        dp[0] = 1;
+        dp[1] = (s[0] == '0') ? 0 : 1;
+
+        for (int i = 2; i <= n; i++) {
+            int oneDigit = stoi(s.substr(i - 1, 1));
+            int twoDigits = stoi(s.substr(i - 2, 2));
+
+            if (oneDigit >= 1) {
+                dp[i] += dp[i - 1];
+            }
+            if (twoDigits >= 10 && twoDigits <= 26) {
+                dp[i] += dp[i - 2];
+            }
+        }
+
+        return dp[n];
     }
 };
