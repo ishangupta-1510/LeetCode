@@ -21,8 +21,8 @@ public:
             ans.push_back(nums[p2]);
             p2++;
         }
-        for (int i = start, j = 0; i <= end; i++, j++) {
-            nums[i] = ans[j];
+        for(int i=start;i<=end;i++){
+            nums[i] = ans[i-start];
         }
     }
     void mergesort(vector<int>& nums,int start,int end){
