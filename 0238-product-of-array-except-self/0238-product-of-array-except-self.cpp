@@ -1,40 +1,36 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        vector<int> v;
-        int countzero = 0;
-        int multiply = 1;
-        for(int i=0;i<nums.size();i++){
-            if(nums[i] != 0){
-                multiply *= nums[i];
+        int prod = 1, count = 0;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            if(nums[i] == 0){
+                count++;
+                continue;
             }
             else{
-                countzero++;
+                prod *= nums[i];
             }
         }
-        if(countzero>1){
-            for(int i=0;i<nums.size();i++){
-                v.push_back(0);
+        if(count == 0){
+            for(int i=0;i<n;i++)
+                nums[i] = prod/nums[i];
+        }
+        else if(count == 1){
+            for(int i=0;i<n;i++){
+                if(nums[i] == 0){
+                    nums[i] = prod;
+                }
+                else{
+                    nums[i] = 0;
+                }
             }
         }
         else{
-            if(countzero == 1){
-                for(int i=0;i<nums.size();i++){
-                    if(nums[i] != 0){
-                        v.push_back(0);
-                    }
-                    else{
-                        v.push_back(multiply);
-                    }
-                }
-            }
-            else{
-                for(int i=0;i<nums.size();i++){
-                    v.push_back(multiply/nums[i]);
-                }
+            for(int i=0;i<n;i++){
+                nums[i] = 0;
             }
         }
-
-        return v;
+        return nums;
     }
 };
