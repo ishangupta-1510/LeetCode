@@ -4,13 +4,13 @@
  * @return {number[]}
  */
 var filter = function(arr, fn) {
-    let temp = [];
-    let j = 0;
+    let filteredArr = [];
+    let k = 0;
     for(let i=0;i<arr.length;i++){
         if(fn(arr[i],i)){
-            temp[j] = arr[i];
-            j++;
+            filteredArr[k] = arr[i];
+            k++;
         }
     }
-    return temp;
+    return filteredArr;
 };
